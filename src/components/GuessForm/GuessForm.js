@@ -1,14 +1,14 @@
 import React from "react";
 
-function GuessForm() {
+function GuessForm({onGuess}) {
 
     const [guess, setGuess] = React.useState("");
 
     return <>
-        <form className="guess-input-wrapper" onSubmit={onGuess}>
+        <form className="guess-input-wrapper" onSubmit={onGuessSubmit}>
             <label htmlFor="guess-input">Enter guess:</label>
             <input id="guess-input" type="text"
-                   minLength={5} maxLength={5}
+                   minLength={5} maxLength={5} required
                    pattern="[A-Z]{5}"
                    title="Enter a 5-letter word, using only the letters A-Z."
                    value={guess}
@@ -21,10 +21,12 @@ function GuessForm() {
         setGuess(upperCaseGuess);
     }
 
-    function onGuess(event) {
+    function onGuessSubmit(event) {
         event.preventDefault();
         console.log(`Guess: ${guess}`);
+        onGuess(guess);
         setGuess("");
+
     }
 
 }
